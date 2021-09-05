@@ -1,13 +1,17 @@
-#!/bin/bash bash
+#!/bin/bash
 
 # TODO: Rimuovi, solo per test
-firmware_path="/lib/firmware/"
-firmware_path="/home/antonio/temp/lib/firmware/"
+# firmware_path="/lib/firmware/"
+firmware_path="./temp/lib/firmware/"
 
 # Colors
 RED='\033[1;31m'
 GREEN='\033[1;32m'
 NULL='\033[0;m'
+
+function test() {
+	echo "esemese"
+}
 
 function ath6k_firmware() {
 	ath6k_firmware_path="$firmware_path/ath6k/AR6004"
@@ -27,8 +31,8 @@ function ath6k_firmware() {
 		else
 			echo -e "Copying hw1.3 atheros firmware online..."
 			mkdir -p "$ath6k_firmware_path/hw1.3"
-			wget -P "$ath6k_firmware_path/hw1.3/" https://github.com/open-antux/dellv8pro-firmware/raw/master/ath6kl_firmware/ath6k/AR6004/hw1.3/bdata.bin
-			wget -P "$ath6k_firmware_path/hw1.3/" https://github.com/open-antux/dellv8pro-firmware/raw/master/ath6kl_firmware/ath6k/AR6004/hw1.3/fw-5.bin
+			wget -P "$ath6k_firmware_path/hw1.3/" https://github.com/open-antux/dellv8pro-firmware/raw/main/ath6kl_firmware/ath6k/AR6004/hw1.3/bdata.bin
+			wget -P "$ath6k_firmware_path/hw1.3/" https://github.com/open-antux/dellv8pro-firmware/raw/main/ath6kl_firmware/ath6k/AR6004/hw1.3/fw-5.bin
 		fi
 
 	fi
@@ -41,8 +45,8 @@ function ath6k_firmware() {
                 else
                         echo -e "Copying hw3.0 atheros firmware online..."
                         mkdir -p "$ath6k_firmware_path/hw3.0"
-                        wget -P "$ath6k_firmware_path/hw3.0/" https://github.com/open-antux/dellv8pro-firmware/raw/master/ath6kl_firmware/ath6k/AR6004/hw3.0/bdata.bin
-                        wget -P "$ath6k_firmware_path/hw3.0/" https://github.com/open-antux/dellv8pro-firmware/raw/master/ath6kl_firmware/ath6k/AR6004/hw3.0/fw-5.bin
+                        wget -P "$ath6k_firmware_path/hw3.0/" https://github.com/open-antux/dellv8pro-firmware/raw/main/ath6kl_firmware/ath6k/AR6004/hw3.0/bdata.bin
+                        wget -P "$ath6k_firmware_path/hw3.0/" https://github.com/open-antux/dellv8pro-firmware/raw/main/ath6kl_firmware/ath6k/AR6004/hw3.0/fw-5.bin
                 fi
 
         fi
@@ -63,18 +67,18 @@ function intel_firmware() {
                         cp -rf "./intel-firmware/fw_sst_0f28.bin" $intel_firmware_path
                 else    
                         echo -e "Copying intel firmware online..."
-                        wget -P "$intel_firmware_path/intel/" https://github.com/open-antux/dellv8pro-firmware/raw/master/intel_firmware/fw_sst_0f28.bin
+                        wget -P "$intel_firmware_path/intel/" https://github.com/open-antux/dellv8pro-firmware/raw/main/intel_firmware/fw_sst_0f28.bin
                 fi
         
         fi
 }
 
 function main() {
-	atk6k_firmware
+	ath6k_firmware
 	intel_firmware
 }
 
-if [[ "$(group)" == "root" ]]; then
+if [[ "$(id -g)" == "0" ]]; then
 	main
 	echo -e "${GREEN}Reboot your system to apply the firmware changes${NULL}"
 else
