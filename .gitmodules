@@ -1,0 +1,3 @@
+[submodule "ath6kl-firmware"]
+	path = ath6kl-firmware
+	url = https://github.com/qca/ath6kl-firmware.git
