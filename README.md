@@ -19,5 +19,5 @@ In order to use this script online, you required `curl` and `wget`:
 ```
 
 ## Thanksgiving 
-Atheros firmware: @qca
+Atheros firmware: @qca <b/>
 Intel firmware: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/intel
